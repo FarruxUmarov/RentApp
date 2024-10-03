@@ -55,7 +55,7 @@ class MoonShineServiceProvider extends MoonShineApplicationServiceProvider
                 ),
             ]),
 
-            MenuItem::make('Asosiy sahifa', url('/'))->icon('heroicons.home-modern')->customLinkAttributes(['target' => '_blank']),
+            MenuItem::make('home page', url('/'))->icon('heroicons.home')->customLinkAttributes(['target' => '_blank']),
             MenuItem::make('Ads', new AdResource())->icon('heroicons.home-modern'),
 
 //

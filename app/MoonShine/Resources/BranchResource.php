@@ -46,6 +46,7 @@ class BranchResource extends ModelResource
         return [
             ID::make()->sortable(),
             Text::make('Nomi', 'name'),
+            Text::make('Address', 'address'),
         ];
     }
 

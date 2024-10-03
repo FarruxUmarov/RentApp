@@ -12,11 +12,12 @@ use Illuminate\Support\Facades\Storage;
 class AdController extends Controller
 {
 
-    public function index()
+    public function index(): \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application
     {
-       $ads = Ad::with('image', 'branch')->get();
+        $ads = Ad::with('image')->get();
+        $branches = Branch::all();
 
-       return view('ads.index', compact('ads'));
+        return view('ads.index', compact('ads', 'branches'));
     }
 
     /**
@@ -46,7 +47,9 @@ class AdController extends Controller
             'rooms' => $request->get('rooms'),
         ]);
 
+
         $file = Storage::disk('public')->put('/', $request->image);
+//        $path = $request->file('image')->store('images', 'public');
 
         AdImage::query()->create([
             'ad_id' => $ad->id,
@@ -59,9 +62,9 @@ class AdController extends Controller
      */
     public function show(string $id): \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory|\Illuminate\Foundation\Application
     {
-        $ad = Ad::with('branch')->find($id);
-//        $branch = Branch::all();
-        return view('ads.show', compact('ad'));
+        $ad = Ad::with('status')->find($id);
+        $branches = Branch::all();
+        return view('ads.show', compact('ad', 'branches'));
     }
 
     /**
@@ -83,8 +86,34 @@ class AdController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $id): \Illuminate\Http\RedirectResponse
     {
-        //
+        $ad = Ad::query()->find($id);
+        $ad->delete();
+        return redirect()->route('ads.index');
     }
+
+    public function search(Request $request)
+    {
+        $title = $request->get('search_phrase');
+        $branches = $request->get('branch');
+//        $minPrice = $request->get('min-price');
+//        $maxPrice = $request->get('max-price');
+
+        $query = Ad::query();
+
+        if (isset($title)) {
+            $query->where('title', 'like', '%' . $title . '%')
+                ->orWhere('description', 'like', "%$title%");
+
+        }
+
+        if (isset($branches)) {
+            $query->where('branch_id', $branches);
+
+        }
+        $ads = $query->get();
+        return view('ads.index', ['ads' => $ads]);
+    }
+
 }

@@ -9,7 +9,7 @@ return [
     'show' => 'Show',
     'save' => 'Save',
     'saved' => 'Saved',
-    'saved_error' => 'Error',
+    'saved_error' => 'Xatolik',
     'filters' => 'Filters',
     'search' => 'Search',
     'reset' => 'Reset',

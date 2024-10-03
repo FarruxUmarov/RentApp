@@ -93,7 +93,6 @@ return [
     'locales' => [
         'en',
         'ru',
-        'uz',
     ],
 
     'global_search' => [

@@ -11,9 +11,13 @@
     <meta name="email" content="support@shreethemes.in" />
     <meta name="version" content="2.2.0" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <script src="https://unpkg.com/feather-icons"></script>
+
+
 
     <!-- favicon -->
     <link rel="shortcut icon" href="/assets/images/favicon.ico" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font/css/materialdesignicons.min.css">
     @vite(['resources/css/app.css',  'resources/js/app.js'])
 
 </head>

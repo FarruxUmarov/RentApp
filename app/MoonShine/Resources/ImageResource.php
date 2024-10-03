@@ -34,7 +34,11 @@ class ImageResource extends ModelResource
         return [
             Block::make([
                 ID::make()->sortable(),
-                Image::make('name')->disk('public'),
+//                Image::make('name')->disk('public'),
+                Image::make('name', 'name')
+                    ->dir('/') // Директория где будут хранится файлы в storage (по умолчанию /)
+                    ->disk('public') // Filesystems disk
+                    ->allowedExtensions(['jpg', 'gif', 'png'])
             ]),
         ];
     }

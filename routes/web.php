@@ -4,9 +4,11 @@ use App\Http\Controllers\AdController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [AdController::class, 'index']);
+Route::get('/', [AdController::class, 'index'])->name('home');
 
 Route::resource('ads', AdController::class);
+
+Route::get('/search', [AdController::class, 'search']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
